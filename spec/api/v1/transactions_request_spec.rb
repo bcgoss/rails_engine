@@ -45,4 +45,15 @@ describe 'Transaction CRUD Api' do
     expect(response.status).to eq(200)
     expect(raw_transactions.count).to eq(2)
   end
+
+
+  it 'returns a random transaction' do
+    create :transaction, credit_card_number: 1
+    get '/api/v1/transactions/random.json'
+
+    raw_transaction = JSON.parse(response.body)
+
+    expect(response.status).to eq(200)
+    expect(raw_transaction['credit_card_number']).to eq('1')
+  end
 end
