@@ -8,4 +8,12 @@ describe 'Merchant CRUD API' do
     expect(response.status).to eq(200)
     expect(merchants.count).to eq(3)
   end
+
+  it 'returns a single merchant' do
+    merchant = create :merchant, name: 'Test Merchant'
+    get "/api/v1/merchants/#{merchant.id}"
+    raw_merchant = JSON.parse(response.body)
+    expect(response.status).to eq(200)
+    expect(raw_merchant["name"]).to eq("Test Merchant")
+  end
 end
