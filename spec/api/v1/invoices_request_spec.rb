@@ -29,7 +29,7 @@ describe "Invoice CRUD API" do
   end
 
 
-  it "finds an invoice by id" do
+  it "finds an invoice by status" do
     invoice = create(:invoice, status: "shipped")
     get "/api/v1/invoices/find?status=shipped"
     raw_invoice = JSON.parse(response.body)
@@ -37,5 +37,15 @@ describe "Invoice CRUD API" do
     expect(response.status).to eq(200)
     expect(raw_invoice["status"]).to eq("shipped")
     expect(raw_invoice["id"]).to eq(invoice.id)
+  end
+
+  it "finds all invoices by status" do
+    create_list(:invoice, 2, status: "shipped")
+    create(:invoice, status: "pending")
+    get "/api/v1/invoices/find_all?status=shipped"
+    raw_invoices = JSON.parse(response.body)
+
+    expect(response.status).to eq(200)
+    expect(raw_invoices.count).to eq(2)
   end
 end
