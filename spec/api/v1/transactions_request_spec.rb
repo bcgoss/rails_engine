@@ -24,11 +24,13 @@ describe 'Transaction CRUD Api' do
   end
 
   it 'finds a transaction based on card number' do
+    transaction = create :transaction, credit_card_number: '2'
     get '/api/v1/transactions/find?credit_card_number=2'
 
     raw_transaction = JSON.parse(response.body)
 
     expect(response.status).to eq(200)
     expect(raw_transaction['credit_card_number']).to eq('2')
+    expect(raw_transaction['id']).to eq(transaction.id)
   end
 end
