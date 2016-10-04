@@ -48,4 +48,13 @@ describe "Invoice CRUD API" do
     expect(response.status).to eq(200)
     expect(raw_invoices.count).to eq(2)
   end
+
+  it "finds a random invoice" do
+    create(:invoice, status: "pending")
+    get "/api/v1/invoices/random"
+    raw_invoice = JSON.parse(response.body)
+
+    expect(response.status).to eq(200)
+    expect(raw_invoice["status"]).to eq("pending")
+  end
 end

@@ -7,6 +7,10 @@ class Api::V1::Invoices::SearchController < ApplicationController
     render json: Invoice.where(invoice_params)
   end
 
+  def random
+    render json: Invoice.random
+  end
+
 private
   def invoice_params
     params.permit(:id, :status)
