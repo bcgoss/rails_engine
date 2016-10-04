@@ -33,4 +33,16 @@ describe 'Transaction CRUD Api' do
     expect(raw_transaction['credit_card_number']).to eq('2')
     expect(raw_transaction['id']).to eq(transaction.id)
   end
+
+
+  it 'finds all transactions that match a card number' do
+    create :transaction, credit_card_number: 1
+    create_list :transaction, 2, credit_card_number: 2
+    get '/api/v1/transactions/find_all?credit_card_number=2'
+
+    raw_transactions = JSON.parse(response.body)
+
+    expect(response.status).to eq(200)
+    expect(raw_transactions.count).to eq(2)
+  end
 end
