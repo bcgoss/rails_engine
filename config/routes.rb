@@ -4,12 +4,14 @@ Rails.application.routes.draw do
       namespace :invoices do
         get '/find', to: 'search#find'
         get '/find_all', to: 'search#find_all'
+        get '/random', to: 'search#random'
       end
       resources :invoices, only: [:index, :show]
 
       namespace :transactions do
         get '/find', to: 'search#find'
         get '/find_all', to: 'search#find_all'
+        get '/random', to: 'search#random'
       end
       resources :transactions, only: [:index, :show]
 
