@@ -1,3 +1,3 @@
-class MerchantSerializer < ActiveModel::Serializer
+class MerchantSerializer < ApplicationSerializer
   attributes :id, :name
 end
