@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :transactions, only: [:index, :show]
 
       namespace :merchants do
+        get '/:id/revenue', to: 'revenue#total'
         get '/find', to: 'search#find'
         get '/find_all', to: 'search#find_all'
         get '/random', to: 'search#random'
