@@ -17,7 +17,7 @@ describe "Single Merchant Total Revenue" do
     create(:transaction, invoice_id: "#{invoice.id}", credit_card_number: 	4654405418249631, result: "success")
 
     get "/api/v1/merchants/#{merchant.id}/revenue"
-    byebug
+  #  byebug
     total_revenue = JSON.parse(response.body)
 
     expect(response.status).to eq(200)

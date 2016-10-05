@@ -13,6 +13,9 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
 
 private
   def invoice_items_params
+    if params.keys.include?("unit_price")
+      params["unit_price"] = params["unit_price"].gsub(".", "")
+    end
     params.permit(:id, :quantity, :unit_price, :created_at, :updated_at, :item_id, :invoice_id)
   end
 end

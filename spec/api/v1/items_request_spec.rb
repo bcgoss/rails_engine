@@ -20,7 +20,7 @@ describe "Item CRUD API" do
     expect(response.status).to eq(200)
     expect(raw_item["name"]).to eq("pencil")
     expect(raw_item["description"]).to eq("super sweet pencil")
-    expect(raw_item["unit_price"]).to eq(100)
+    expect(raw_item["unit_price"]).to eq('1.00')
   end
 
   it 'finds an item by quantity' do
