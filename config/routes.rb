@@ -15,6 +15,9 @@ Rails.application.routes.draw do
       end
       resources :transactions, only: [:index, :show]
 
+      namespace :merchants do
+        get '/:id/revenue', to: 'revenue#total'
+      end
       resources :merchants, only: [:index, :show]
       resources :items, only: [:index, :show]
       resources :invoice_items, only: [:index, :show]
