@@ -1,3 +1,3 @@
-class CustomerSerializer < ActiveModel::Serializer
-  attributes :first_name, :id, :last_name 
+class CustomerSerializer < ApplicationSerializer
+  attributes :first_name, :id, :last_name
 end
