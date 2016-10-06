@@ -26,7 +26,8 @@ describe "Single Merchant Customers With Pending Invoices" do
 
     expect(response.status).to eq(200)
     expect(pending_customers["pending_invoice_customers"].count).to eq(2)
-    expect(pending_customers["pending_invoice_customers"][0]["id"]).to eq(customer1.id)
-    expect(pending_customers["pending_invoice_customers"][1]["id"]).to eq(customer2.id)
+    expect(pending_customers["pending_invoice_customers"].pluck("id")).to include(customer1.id)
+    expect(pending_customers["pending_invoice_customers"].pluck("id")).to include(customer2.id)
+    # expect(pending_customers["pending_invoice_customers"][0]["id"]).to eq(customer2.id)
   end
 end

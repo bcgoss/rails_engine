@@ -9,6 +9,16 @@ class Merchant < ApplicationRecord
   end
 
   def pending_invoice_customers
-    customers.joins(:invoices, :transactions).merge(Transaction.failure)
+    # customers.joins(:invoices, :transactions).merge(Transaction.not_successful)
+    # customers.joins(:invoices, :transactions).except(Transaction.successful)
+    customers.find_by_sql("
+      SELECT customers.* FROM customers
+      INNER JOIN invoices ON invoices.customer_id = customers.id
+      EXCEPT
+      SELECT customers.* FROM customers
+      INNER JOIN invoices ON invoices.customer_id = customers.id
+      INNER JOIN transactions on transactions.invoice_id = invoices.id
+      WHERE transactions.result = 'success'"
+    )
   end
 end
