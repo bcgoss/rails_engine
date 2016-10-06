@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
       namespace :merchants do
         get '/:id/revenue', to: 'revenue#total'
+        get '/:id/customers_with_pending_invoices', to: 'customers_with_pending_invoices#list'
         get '/find', to: 'search#find'
         get '/find_all', to: 'search#find_all'
         get '/random', to: 'search#random'
