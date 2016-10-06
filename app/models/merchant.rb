@@ -6,7 +6,7 @@ class Merchant < ApplicationRecord
 
   has_many :items
   def revenue(date)
-    if date    
+    if date
       invoices.joins(:invoice_items, :transactions).merge(Transaction.successful).where(created_at: date).sum("invoice_items.quantity * invoice_items.unit_price")
     else
       invoices.joins(:invoice_items, :transactions).merge(Transaction.successful).sum("invoice_items.quantity * invoice_items.unit_price")
@@ -19,11 +19,17 @@ class Merchant < ApplicationRecord
     customers.find_by_sql("
       SELECT customers.* FROM customers
       INNER JOIN invoices ON invoices.customer_id = customers.id
+      WHERE invoices.merchant_id = #{self.id}
       EXCEPT
       SELECT customers.* FROM customers
       INNER JOIN invoices ON invoices.customer_id = customers.id
       INNER JOIN transactions on transactions.invoice_id = invoices.id
-      WHERE transactions.result = 'success'"
+      WHERE transactions.result = 'success'
+      AND invoices.merchant_id = #{self.id}"
     )
+  end
+
+  def favorite_customer
+    customers.joins(:transactions).merge(Transaction.successful).group(:id, :first_name, :last_name).order("count(customers.id) DESC").first
   end
 end
