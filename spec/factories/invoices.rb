@@ -3,12 +3,10 @@ FactoryGirl.define do
     status "MyText"
 
     factory :invoice_with_merchant do
-      #this factory creates an invoice with a merchant. No cust or anything else
       merchant
     end
-# For the most part it makes sense, make an invoice, create a merchant, then add a customer, then add in some transactionser the inner most nestings happen
+
     factory :invoice_with_customer do
-      #this factory creates an invoice iwth a customer, but no merchant. that was the error I thought I saw
       customer
 
       factory :invoice_with_customer_items_and_transactions do
@@ -27,7 +25,6 @@ FactoryGirl.define do
             evaluator.item_count,
             invoices: [invoice]
           )
-          invoice.merchant.items << invoice.items
         end
       end
     end
@@ -53,16 +50,38 @@ FactoryGirl.define do
       merchant
       customer
 
-      factory :complete_invoice do
+      factory :invoice_with_merchant_customer_and_items do
         transient do
           item_count 3
         end
 
         after(:create) do |invoice, evaluator|
-          create_list(
+          items = create_list(
+          :item,
+          evaluator.item_count
+          )
+          items.each do |item|
+            create_list(
             :invoice_item,
             evaluator.item_count,
-            invoice: invoice)
+            invoice: invoice,
+            item: item
+            )
+          end
+        end
+
+        factory :complete_invoice do
+          transient do
+            transaction_count 2
+          end
+
+          after(:create) do |invoice, evaluator|
+            create_list(
+              :transaction,
+              evaluator.transaction_count,
+              invoice: invoice
+            )
+          end
         end
       end
     end
