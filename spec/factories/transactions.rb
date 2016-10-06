@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :transaction do
     credit_card_number "MyText"
     credit_card_expiration_date "MyText"
-    result "MyText"
+    result "success"
   end
 end
