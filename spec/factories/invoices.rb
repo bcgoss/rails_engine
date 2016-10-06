@@ -1,13 +1,10 @@
 FactoryGirl.define do
   factory :invoice do
     status "MyText"
-
-    factory :invoice_with_merchant do
-      merchant
-    end
+    merchant
+    customer
 
     factory :invoice_with_customer do
-      customer
 
       factory :invoice_with_customer_items_and_transactions do
         transient do
@@ -72,7 +69,7 @@ FactoryGirl.define do
 
         factory :complete_invoice do
           transient do
-            transaction_count 2
+            transaction_count 1
           end
 
           after(:create) do |invoice, evaluator|

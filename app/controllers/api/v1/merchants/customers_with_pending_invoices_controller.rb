@@ -1,6 +1,5 @@
 class Api::V1::Merchants::CustomersWithPendingInvoicesController < ApplicationController
-  def total
-    render json: Merchant.find(params[:id]), serializer: MerchantCustomersWithPendingInvoicesSerializer 
+  def list
+    render json: Merchant.find(params[:id]).pending_invoice_customers
   end
-
 end
