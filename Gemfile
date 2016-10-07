@@ -22,6 +22,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'byebug', platform: :mri
+  gem 'simplecov', :require => false
 end
 
 group :development do
