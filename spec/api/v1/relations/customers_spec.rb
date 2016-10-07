@@ -13,9 +13,8 @@ describe 'Customer Relationships' do
   end
 
   it 'with transactions' do
-    pending
     customer = create :customer
-    create_list :transaction, 2, customer: customer
+    create_list :complete_invoice, 2, customer: customer
 
     get "/api/v1/customers/#{customer.id}/transactions"
     transactions = JSON.parse(response.body)
