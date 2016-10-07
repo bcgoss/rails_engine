@@ -10,4 +10,14 @@ class Item < ApplicationRecord
   def self.most_revenue(quantity = 1)
     joins(:invoice_items, invoices: :transactions).merge(Transaction.successful).group(:id).order("sum(invoice_items.unit_price * invoice_items.quantity) desc").limit(quantity)
   end
+
+  def self.most_items(quantity = 1)
+    joins(:invoice_items, invoices: :transactions).merge(Transaction.successful).group(:id).order("sum(invoice_items.quantity) desc").limit(quantity)
+  end
+
+  def best_day
+    invoices.joins(:invoice_items, :transactions).merge(Transaction.successful).group(:created_at).order('sum(invoice_items.quantity) desc').pluck(:created_at).first
+
+    # invoice_items.joins(invoice: :transactions).merge(Transaction.successful).group("invoice_items.created_at").order("sum(invoice_items.quantity) desc")
+  end
 end
