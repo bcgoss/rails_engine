@@ -40,6 +40,7 @@ Rails.application.routes.draw do
         get '/find', to: 'search#find'
         get '/find_all', to: 'search#find_all'
         get '/random', to: 'search#random'
+        get '/most_revenue', to: 'revenue#most'
         get '/:id/invoice_items', to: 'relations#invoice_items'
         get '/:id/merchant', to: 'relations#merchant'
       end
