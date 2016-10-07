@@ -6,4 +6,8 @@ class Item < ApplicationRecord
   def unit_price
     '%.2f' % (self[:unit_price].to_f / 100)
   end
+
+  def self.most_revenue(quantity = 1)
+    joins(:invoice_items, invoices: :transactions).merge(Transaction.successful).group(:id).order("sum(invoice_items.unit_price * invoice_items.quantity) desc").limit(quantity)
+  end
 end
