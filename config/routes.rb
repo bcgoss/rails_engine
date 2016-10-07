@@ -16,7 +16,8 @@ Rails.application.routes.draw do
       resources :transactions, only: [:index, :show]
 
       namespace :merchants do
-        get '/:id/revenue', to: 'revenue#total'
+        get '/revenue', to: 'revenue#all'
+        get '/:id/revenue', to: 'revenue#single'
         get '/:id/customers_with_pending_invoices', to: 'customers_with_pending_invoices#list'
         get '/:id/favorite_customer', to: 'favorite#customer'
         get '/find', to: 'search#find'

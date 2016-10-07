@@ -13,6 +13,14 @@ class Merchant < ApplicationRecord
     end
   end
 
+  def self.revenue(date)
+    if date
+      joins(:invoices).joins(:invoice_items, :transactions).merge(Transaction.successful).where(created_at: date).sum("invoice_items.quantity * invoice_items.unit_price")
+    else
+      joins(:invoices).joins(:invoice_items, :transactions).merge(Transaction.successful).sum("invoice_items.quantity * invoice_items.unit_price")
+    end
+  end
+
   def pending_invoice_customers
     # customers.joins(:invoices, :transactions).merge(Transaction.not_successful)
     # customers.joins(:invoices, :transactions).except(Transaction.successful)
