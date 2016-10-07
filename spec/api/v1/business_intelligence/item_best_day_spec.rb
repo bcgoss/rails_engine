@@ -10,6 +10,6 @@ describe 'Item best day' do
     date = JSON.parse(response.body)
 
     expect(response.status).to eq(200)
-    expect(date).to eq(Date.yesterday)
+    expect(date["best_day"].to_date).to eq(Date.yesterday)
   end
 end
