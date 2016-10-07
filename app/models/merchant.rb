@@ -15,10 +15,14 @@ class Merchant < ApplicationRecord
 
   def self.revenue(date)
     if date
-      joins(:invoices).joins(:invoice_items, :transactions).merge(Transaction.successful).where(created_at: date).sum("invoice_items.quantity * invoice_items.unit_price")
+      joins(:invoices).joins(:invoice_items, :transactions).merge(Transaction.successful).where(invoices: {created_at: date}).sum("invoice_items.quantity * invoice_items.unit_price")
     else
       joins(:invoices).joins(:invoice_items, :transactions).merge(Transaction.successful).sum("invoice_items.quantity * invoice_items.unit_price")
     end
+  end
+
+  def self.most_revenue(quantity = 1)
+    joins(:invoices).joins(:invoice_items, :transactions).merge(Transaction.successful).limit(quantity).order("sum(invoice_items.unit_price * invoice_items.quantity) DESC").group("invoices.merchant_id")
   end
 
   def pending_invoice_customers

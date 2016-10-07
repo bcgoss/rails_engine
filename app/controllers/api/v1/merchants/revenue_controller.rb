@@ -7,4 +7,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
     render json: Merchant.revenue(params[:date]), serializer: MerchantRevenueSerializer
   end
 
+  def most
+    render json: Merchant.most_revenue(params[:quantity])
+  end
 end
