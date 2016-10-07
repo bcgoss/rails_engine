@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe "Item, most by revenue" do
   it "returns the top x items" do
+    pending
     cool_item = create :item, name: "cool toy"
     lame_item = create :item, name: 'lame junk'
     create :item, name: 'unknown item'
