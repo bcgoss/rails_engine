@@ -8,6 +8,6 @@ describe "Revenue by date for all merchants" do
     total_revenue = JSON.parse(response.body)
 
     expect(response.status).to eq(200)
-    expect(total_revenue).to eq("27.00")
+    expect(total_revenue["total_revenue"]).to eq("27.00")
   end
 end

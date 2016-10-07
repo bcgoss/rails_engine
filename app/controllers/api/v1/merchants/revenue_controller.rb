@@ -4,7 +4,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
   end
 
   def all
-    render json: Merchant.revenue(params[:date]), serializer: MerchantRevenueSerializer
+    render json: Merchant.revenue(params[:date]), serializer: MerchantsTotalRevenueSerializer
   end
 
   def most

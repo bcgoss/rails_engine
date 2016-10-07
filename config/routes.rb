@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       namespace :merchants do
         get '/revenue', to: 'revenue#all'
         get '/most_revenue', to: 'revenue#most'
+        get '/most_items', to: 'items#most'
         get '/find', to: 'search#find'
         get '/find_all', to: 'search#find_all'
         get '/random', to: 'search#random'
